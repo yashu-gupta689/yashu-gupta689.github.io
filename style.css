@@ -1,0 +1,442 @@
+/* ============================================================
+   YASHU GUPTA — PORTFOLIO STYLESHEET
+   style.css
+   
+   SECTIONS INDEX:
+   1. RESET & ROOT VARIABLES
+   2. SCROLLBAR
+   3. NAVIGATION
+   4. HERO SECTION
+   5. HERO CARD (right side)
+   6. SECTION (common styles)
+   7. ABOUT SECTION
+   8. SKILLS SECTION
+   9. PROJECTS SECTION
+   10. CERTIFICATES SECTION
+   11. INTERESTS SECTION
+   12. CONTACT SECTION
+   13. FOOTER
+   14. ANIMATIONS
+   15. MOBILE RESPONSIVE
+============================================================ */
+
+
+/* ============================================================
+   1. RESET & ROOT VARIABLES
+   — Edit colors, shadows, radius yahan se
+============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --white: #ffffff;
+  --off-white: #f9f8f6;
+  --light: #f2f0ec;
+  --border: #e4e1db;
+  --text: #111111;
+  --muted: #555555;
+  --light-text: #888888;
+  --accent: #1a4fd6;
+  --accent-hover: #1340b8;
+  --accent-bg: #eef3ff;
+  --green: #0a7c4a;
+  --green-bg: #edfaf3;
+  --orange: #c45c00;
+  --orange-bg: #fff4ea;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+  --shadow: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.10);
+  --radius: 12px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); font-size: 15px; }
+
+
+/* ============================================================
+   2. SCROLLBAR
+============================================================ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--off-white); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+
+/* ============================================================
+   3. NAVIGATION
+   — Edit nav height, background, logo yahan se
+============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text); }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta { background: var(--accent); color: white !important; padding: 0.45rem 1.1rem; border-radius: 6px; }
+.nav-cta:hover { background: var(--accent-hover) !important; }
+
+
+/* ============================================================
+   4. HERO SECTION
+   — Edit hero background, heading size, badge yahan se
+============================================================ */
+#hero {
+  padding-top: 64px; min-height: 100vh;
+  display: flex; align-items: center;
+  background: var(--white); position: relative; overflow: hidden;
+}
+.hero-bg-lines {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px; opacity: 0.3; pointer-events: none;
+}
+.hero-bg-gradient {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 60% 40%, var(--accent-bg) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto; padding: 5rem 5%;
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; width: 100%;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--green-bg); color: var(--green);
+  border: 1px solid #b3e8cf; border-radius: 100px;
+  padding: 0.35rem 0.9rem; font-size: 0.75rem; font-weight: 600;
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.5s ease forwards 0.1s;
+}
+.hero-badge::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 800;
+  line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.2rem;
+  opacity: 0; animation: fadeUp 0.5s ease forwards 0.2s;
+}
+h1 em { font-style: normal; color: var(--accent); }
+.hero-desc {
+  font-size: 1rem; color: var(--muted); line-height: 1.75;
+  max-width: 480px; margin-bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.5s ease forwards 0.3s;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp 0.5s ease forwards 0.4s;
+}
+.tag {
+  background: var(--light); color: var(--muted);
+  border: 1px solid var(--border); border-radius: 100px;
+  padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 500;
+}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.5s ease forwards 0.5s;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--accent); color: white;
+  padding: 0.75rem 1.6rem; border-radius: 8px; text-decoration: none;
+  font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(26,79,214,0.3);
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--white); color: var(--text);
+  padding: 0.75rem 1.6rem; border-radius: 8px; text-decoration: none;
+  font-size: 0.85rem; font-weight: 600; border: 1.5px solid var(--border); transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+
+/* ============================================================
+   5. HERO CARD (right side floating card)
+   — Edit avatar color, card padding, skill pills yahan se
+============================================================ */
+.hero-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem; box-shadow: var(--shadow-lg);
+  opacity: 0; animation: fadeLeft 0.6s ease forwards 0.5s;
+}
+@keyframes fadeLeft { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+.card-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);
+}
+.avatar {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, #0f3291, #1a4fd6);
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: white; flex-shrink: 0;
+}
+.card-name { font-weight: 700; font-size: 0.95rem; }
+.card-role { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+.info-row { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1rem; }
+.info-icon {
+  width: 32px; height: 32px; background: var(--off-white); border: 1px solid var(--border);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+}
+.info-label { font-size: 0.7rem; color: var(--light-text); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+.info-value { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-top: 0.1rem; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.skill-pill {
+  background: var(--accent-bg); color: var(--accent);
+  border: 1px solid #c7d7fa; padding: 0.25rem 0.7rem;
+  border-radius: 100px; font-size: 0.72rem; font-weight: 600;
+}
+
+
+/* ============================================================
+   6. SECTION (common styles)
+   — Ye sab sections mein use hota hai
+============================================================ */
+.section { padding: 5rem 5%; border-top: 1px solid var(--border); }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 3rem; }
+.section-num {
+  font-size: 0.72rem; font-weight: 700; color: var(--accent);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: var(--accent-bg); border: 1px solid #c7d7fa;
+  padding: 0.2rem 0.6rem; border-radius: 4px;
+}
+h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,3vw,2.2rem); font-weight: 700; letter-spacing: -0.02em; }
+
+
+/* ============================================================
+   7. ABOUT SECTION
+   — Edit about text layout, highlight cards yahan se
+============================================================ */
+#about { background: var(--off-white); }
+.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; font-size: 0.95rem; }
+.about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+.highlight-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.2rem 1.4rem;
+  display: flex; align-items: center; gap: 1rem;
+  box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+.highlight-item:hover { box-shadow: var(--shadow); transform: translateX(4px); }
+.highlight-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+}
+.hi-blue { background: var(--accent-bg); }
+.hi-green { background: var(--green-bg); }
+.hi-orange { background: var(--orange-bg); }
+.highlight-label { font-size: 0.7rem; color: var(--light-text); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.highlight-val { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-top: 0.15rem; }
+
+
+/* ============================================================
+   8. SKILLS SECTION
+   — Skill cards aur progress bars yahan se edit karo
+============================================================ */
+#skills { background: var(--white); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem; }
+.skill-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem; transition: all 0.2s;
+}
+.skill-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-3px); }
+.skill-emoji { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+.skill-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.3rem; }
+.skill-level { font-size: 0.72rem; color: var(--light-text); margin-bottom: 0.8rem; }
+.skill-bar { height: 4px; background: var(--light); border-radius: 10px; overflow: hidden; }
+.skill-bar-fill {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--accent), #5b8ef5);
+  border-radius: 10px; transition: width 1s ease;
+}
+
+
+/* ============================================================
+   9. PROJECTS SECTION
+   — Project card header, progress bar, tech tags yahan se
+============================================================ */
+#projects { background: var(--off-white); }
+.project-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
+  max-width: 760px; transition: all 0.2s;
+}
+.project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.project-header {
+  background: linear-gradient(135deg, #1a4fd6 0%, #3a6ef5 100%);
+  padding: 2rem 2.5rem; color: white; position: relative; overflow: hidden;
+}
+.project-header::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:140px; height:140px; border-radius:50%; background:rgba(255,255,255,0.07);
+}
+.project-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+  color: white; padding: 0.25rem 0.7rem; border-radius: 100px;
+  font-size: 0.72rem; font-weight: 600; margin-bottom: 1rem;
+}
+.project-title {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 0.5rem; position: relative; z-index: 1;
+}
+.project-subtitle { font-size: 0.85rem; opacity: 0.8; position: relative; z-index: 1; }
+.project-body { padding: 2rem 2.5rem; }
+.project-desc { color: var(--muted); line-height: 1.75; font-size: 0.92rem; margin-bottom: 1.5rem; }
+.progress-section { margin-bottom: 1.5rem; }
+.progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.progress-text { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+.progress-pct { font-size: 0.78rem; font-weight: 700; color: var(--accent); }
+.progress-bar { height: 8px; background: var(--light); border-radius: 10px; overflow: hidden; }
+.progress-fill {
+  height: 100%; width: 70%;
+  background: linear-gradient(90deg, var(--accent), #5b8ef5);
+  border-radius: 10px; position: relative;
+}
+.progress-fill::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+.project-techs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.tech-tag {
+  background: var(--light); color: var(--text); border: 1px solid var(--border);
+  padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 500;
+}
+.project-footer {
+  display: flex; align-items: center; gap: 1rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+}
+
+
+/* ============================================================
+   10. CERTIFICATES SECTION
+   — Certificate card, logo, verified badge yahan se
+============================================================ */
+#certificates { background: var(--white); }
+.cert-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 2rem; max-width: 520px;
+  display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center;
+  box-shadow: var(--shadow); transition: all 0.2s; position: relative; overflow: hidden;
+}
+.cert-card::before {
+  content:''; position:absolute; top:0; left:0;
+  width:4px; height:100%;
+  background: linear-gradient(180deg, var(--accent), #5b8ef5);
+  border-radius: 4px 0 0 4px;
+}
+.cert-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.cert-logo {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #0f3291, #1a4fd6);
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; box-shadow: 0 4px 12px rgba(26,79,214,0.25);
+}
+.cert-issuer { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.3rem; }
+.cert-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+.cert-meta { display: flex; align-items: center; gap: 0.8rem; }
+.cert-date { font-size: 0.75rem; color: var(--light-text); font-weight: 500; }
+.cert-verified {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: var(--green-bg); color: var(--green); border: 1px solid #b3e8cf;
+  padding: 0.15rem 0.6rem; border-radius: 100px; font-size: 0.68rem; font-weight: 600;
+}
+
+
+/* ============================================================
+   11. INTERESTS SECTION
+   — Interest cards, numbered list yahan se
+============================================================ */
+#interests { background: var(--off-white); }
+.interests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1rem; }
+.interest-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 1.4rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: all 0.2s; box-shadow: var(--shadow-sm);
+}
+.interest-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.interest-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--border); min-width: 2rem; }
+.interest-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+
+
+/* ============================================================
+   12. CONTACT SECTION
+   — Contact links, availability dots yahan se
+============================================================ */
+#contact { background: var(--white); }
+.contact-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+.contact-intro h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+.contact-intro p { color: var(--muted); line-height: 1.75; font-size: 0.92rem; margin-bottom: 1.5rem; }
+.contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem; background: var(--off-white);
+  border: 1.5px solid var(--border); border-radius: var(--radius);
+  text-decoration: none; color: var(--text); transition: all 0.2s;
+}
+.contact-item:hover { border-color: var(--accent); background: var(--accent-bg); transform: translateX(4px); }
+.contact-item-icon {
+  width: 38px; height: 38px; background: var(--white); border: 1px solid var(--border);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.contact-item-label { font-size: 0.68rem; color: var(--light-text); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.contact-item-value { font-size: 0.85rem; font-weight: 500; margin-top: 0.1rem; }
+.contact-availability {
+  background: var(--off-white); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+}
+.avail-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem; }
+.avail-item {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem; color: var(--muted);
+}
+.avail-item:last-child { border-bottom: none; }
+.avail-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: var(--green); }
+.dot-blue { background: var(--accent); }
+.dot-orange { background: var(--orange); }
+
+
+/* ============================================================
+   13. FOOTER
+   — Footer background, text color yahan se
+============================================================ */
+footer { background: var(--text); color: rgba(255,255,255,0.5); text-align: center; padding: 2rem; font-size: 0.78rem; }
+footer span { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+
+/* ============================================================
+   14. ANIMATIONS
+   — Scroll reveal, fadeUp animation yahan se
+============================================================ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+/* ============================================================
+   15. MOBILE RESPONSIVE
+   — Mobile layout changes yahan se
+============================================================ */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-card { display: none; }
+  .section { padding: 3.5rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+}
